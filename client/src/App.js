@@ -1,20 +1,22 @@
-import "./style.js";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
+import "./style.js";
+import { useDispatch } from "react-redux";
+
 import Posts from "./components/Posts/Posts";
 import Form from "./components/Form/Form";
 import useStyles from "./style";
-import { fetchPost } from "./components/actions/action";
-import { connect } from "react-redux";
+import { fetchPost } from "./actions/action";
 import { useEffect } from "react";
 
-function App(props) {
+function App() {
   const imglink =
     "https://raw.githubusercontent.com/adrianhajdin/project_mern_memories/PART_1_and_2/client/src/images/memories.png";
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    props.fetchPost();
-  }, []);
+    dispatch(fetchPost());
+  }, [dispatch]);
 
   return (
     <Container maxwidth="lg">
@@ -52,9 +54,4 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  console.log("the state ", state);
-  return state;
-};
-
-export default connect(mapStateToProps, { fetchPost })(App);
+export default App;

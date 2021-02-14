@@ -7,7 +7,7 @@ export default makeStyles(() => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
+    alignItem: "center",
   },
   heading: {
     color: "rgba(0,183,255, 1)",
