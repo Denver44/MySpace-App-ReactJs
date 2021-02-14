@@ -1,22 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useStyles from "./styles";
+import { connect } from "react-redux";
+import Post from "../Post/Post";
 
-import { useSelector } from "react-redux";
-
-import Post from "./Post/Post";
-function Posts() {
+function Posts(props) {
   const classes = useStyles();
-  const posts = useSelector((state) => state.posts);
-  console.log("=>  " + posts);
-// 
+
+
   return (
     <div>
-      <Post />
-      <Post />
-      <Post />
       <Post />
     </div>
   );
 }
-
-export default Posts;
+const mapStateToProps = (state) => {
+  console.log("the state from post ", state);
+  return state;
+};
+export default connect(mapStateToProps)(Posts);
