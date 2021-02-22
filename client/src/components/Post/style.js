@@ -1,10 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
-
-export default makeStyles({
+export const useStyles = makeStyles({
   media: {
     height: 0,
     paddingTop: "56.25%",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
     backgroundBlendMode: "darken",
   },
   border: {
@@ -48,5 +47,12 @@ export default makeStyles({
     padding: "0 16px 8px 16px",
     display: "flex",
     justifyContent: "space-between",
+    alignItems: "center",
+  },
+  buttons: {
+    marginTop: "2px",
+    marginLeft: "4px",
+    fontWeight: "500",
+    fontSize: "14px",
   },
 });

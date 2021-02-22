@@ -6,10 +6,11 @@ const PORT = process.env.PORT || 5000;
 import postRoutes from "./routes/posts.js";
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json({ limit: "30mb", extended: true })); // for images the size is fix
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
 
+// it going to reach as /posts
 app.use("/posts", postRoutes);
 
 app.listen(PORT, () => {

@@ -1,9 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export default makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   mainContainer: {
     display: "flex",
-    alignItem: "center",
+    alignItems: "center",
   },
   smMargin: {
     margin: theme.spacing(1),

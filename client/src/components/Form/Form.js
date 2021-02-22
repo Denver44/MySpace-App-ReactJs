@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import useStyles from "./styles";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import FileBase from "react-file-base64";
-import { createPost } from "../../actions/action";
+import { createPost, updatePost } from "../../actions/action";
+import { useStyles } from "./style";
+import { useSelector } from "react-redux";
 
-function Form() {
+function Form({ currentId, setCurrentId }) {
+  const dispatch = useDispatch();
+  const classes = useStyles();
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -13,32 +16,54 @@ function Form() {
     tags: "",
     selectedFile: "",
   });
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
 
-  const classes = useStyles();
+  const clear = () => {
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+    setCurrentId(null);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost(postData));
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
+    clear();
   };
-  const clear = () => {};
 
   return (
     <Paper className={classes.paper}>
+      {/* paper is lika div whith white background */}
       <form
         autoComplete="off"
         noValidate
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? "Editing " : "Creating"} a Post
+        </Typography>
+        {/* It is like input field */}
         <TextField
           name="creator"
           variant="outlined"
           label="Creator"
           fullWidth
           value={postData.creator}
-          // Below IMP
           onChange={(e) =>
             setPostData({ ...postData, creator: e.target.value })
           }
@@ -70,7 +95,10 @@ function Form() {
           fullWidth
           value={postData.tags}
           onChange={(e) =>
-            setPostData({ ...postData, tags: e.target.value.split(",") })
+            setPostData({
+              ...postData,
+              tags: e.target.value.split(","),
+            })
           }
         />
         <div className={classes.fileInput}>
@@ -89,13 +117,14 @@ function Form() {
           size="large"
           type="submit"
           fullWidth
+          // gutterBottom
         >
           Submit
         </Button>
         <Button
           variant="contained"
           color="secondary"
-          size="small"
+          size="large"
           onClick={clear}
           fullWidth
         >
