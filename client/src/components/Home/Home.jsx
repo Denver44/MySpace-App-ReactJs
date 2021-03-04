@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import { Container, Grow, Grid } from "@material-ui/core";
 import Posts from "../Posts/Posts.js";
 import Form from "../Form/Form.js";
-import { fetchPost } from "../../actions/action.js";
+import { fetchPost } from "../../actions";
 import { useDispatch } from "react-redux";
 import { useStyles } from "./style";
-
 function Home() {
   const classes = useStyles();
   const dispatch = useDispatch();

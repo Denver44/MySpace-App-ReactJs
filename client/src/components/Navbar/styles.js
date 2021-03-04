@@ -28,7 +28,7 @@ export const useStyles = makeStyles((theme) => ({
   profile: {
     display: "flex",
     justifyContent: "space-between",
-    width: "400px",
+    width: "280px",
   },
   userName: {
     display: "flex",
@@ -43,10 +43,10 @@ export const useStyles = makeStyles((theme) => ({
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   },
-  [theme.breakpoints.down("xs")]: {
+  [theme.breakpoints.down("sm")]: {
     heading: {
       fontWeight: 500,
-      fontSize: "40px",
+      fontSize: "35px",
       color: "#303f9f",
       marginLeft: "1rem",
     },

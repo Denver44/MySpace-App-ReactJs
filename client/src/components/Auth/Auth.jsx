@@ -7,22 +7,55 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
+import GoogleButton from "../GoogleButton/GoogleButton";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import useStyles from "./Style.js";
 import Input from "../Input/Input";
-function Auth() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isSignup, setisSignup] = useState(false);
+import { signIn, signUp } from "../../actions";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
+const Auth = () => {
   const classes = useStyles();
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState(initialState);
+  const [isSignup, setisSignup] = useState(false);
+
+  const switchMode = () => {
+    setisSignup((prevsetIsSignup) => !prevsetIsSignup);
+    setShowPassword(false);
+  };
+
   const handleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-  const switchMode = () => {
-    setisSignup((prevsetisSignup) => !prevsetisSignup);
-    handleShowPassword(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isSignup) {
+      dispatch(signUp(formData, history));
+    } else {
+      dispatch(signIn(formData, history));
+    }
   };
+
+  // only chnage the current input field u want.
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <Paper className={classes.paper} elevation={3}>
@@ -30,8 +63,8 @@ function Auth() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography variant="h5">{isSignup ? "Sign Up" : "Sign In"}</Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <Grid container spacing={2} >
+        <form className={classes.form}>
+          <Grid container spacing={2}>
             {isSignup && (
               <>
                 <Input
@@ -73,9 +106,8 @@ function Auth() {
               />
             )}
           </Grid>
-
           <Button
-            type="submit"
+            onClick={handleSubmit}
             fullWidth
             variant="contained"
             color="primary"
@@ -83,6 +115,7 @@ function Auth() {
           >
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
+          <GoogleButton className={classes.googleButtton} />
           <Grid container justify="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
@@ -96,6 +129,6 @@ function Auth() {
       </Paper>
     </Container>
   );
-}
+};
 
 export default Auth;

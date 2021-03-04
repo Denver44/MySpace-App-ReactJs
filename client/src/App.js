@@ -8,7 +8,7 @@ function App() {
   return (
     <Container maxwidth="lg">
       <Router>
-      <Navbar />
+        <Navbar />
         <Switch>
           <Route exact path="/">
             <Home />

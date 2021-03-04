@@ -1,5 +1,14 @@
 import axios from "../api/axios";
 
+axios.interceptors.request.use((req) => {
+  if (localStorage.getItem("profile")) {
+    let ValidateProfileData = JSON.parse(localStorage.getItem("profile")).token;
+    req.headers.Authorization = `Bearer ${ValidateProfileData}`;
+  }
+
+  return req;
+});
+
 export const fetchPost = () => async (dispatch) => {
   try {
     const { data } = await axios.get("/posts");
@@ -40,6 +49,29 @@ export const likePost = (id) => async (dispatch) => {
   try {
     const { data } = await axios.patch(`/posts/${id}/LikePost`);
     dispatch({ type: "LIKE", payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const signIn = (formData, history) => async (dispatch) => {
+  try {
+    const { data } = await axios.post("/user/signIn", formData);
+    dispatch({
+      type: "AUTH",
+      data,
+    });
+    history.push("/");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const signUp = (formData, history) => async (dispatch) => {
+  try {
+    const { data } = await axios.post("/user/signUp", formData);
+    dispatch({ type: "AUTH", data });
+    history.push("/");
   } catch (error) {
     console.log(error);
   }

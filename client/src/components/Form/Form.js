@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import FileBase from "react-file-base64";
-import { createPost, updatePost } from "../../actions/action";
+import { createPost, updatePost } from "../../actions";
 import { useStyles } from "./style";
 import { useSelector } from "react-redux";
 
 function Form({ currentId, setCurrentId }) {
+  const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
   const classes = useStyles();
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -26,7 +26,6 @@ function Form({ currentId, setCurrentId }) {
 
   const clear = () => {
     setPostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
@@ -38,12 +37,24 @@ function Form({ currentId, setCurrentId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentId) {
-      dispatch(updatePost(currentId, postData));
+      dispatch(
+        updatePost(currentId, { ...postData, name: user?.result?.name })
+      );
     } else {
-      dispatch(createPost(postData));
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
     }
     clear();
   };
+
+  if (!user) {
+    return (
+      <Paper className={classes.paper}>
+        <Typography variant="h6" align="center">
+          Please Login to create a new post
+        </Typography>
+      </Paper>
+    );
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -58,7 +69,7 @@ function Form({ currentId, setCurrentId }) {
           {currentId ? "Editing " : "Creating"} a Post
         </Typography>
         {/* It is like input field */}
-        <TextField
+        {/* <TextField
           name="creator"
           variant="outlined"
           label="Creator"
@@ -67,7 +78,7 @@ function Form({ currentId, setCurrentId }) {
           onChange={(e) =>
             setPostData({ ...postData, creator: e.target.value })
           }
-        />
+        /> */}
         <TextField
           name="title"
           variant="outlined"
