@@ -11,6 +11,9 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "30mb", extended: true })); // for images the size is fix
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
+app.get("/", (req, res) => {
+  res.send("Welcome to Myspace API");
+});
 // it going to reach as /posts
 app.use("/posts", postRoutes);
 app.use("/user", userRoutes);
