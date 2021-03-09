@@ -1,4 +1,4 @@
-# MySpace Social Media Web-app Using ReactJS
+# MySpace Social Media Web-app Using MERN STACK
 
 <!-- ## <a href="" target="_blank">LIVE DEMO</a> -->
 
