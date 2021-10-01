@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useStyles } from "./style";
 
 function Posts({ setCurrentId }) {
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state?.posts);
   const classes = useStyles();
 
   return !posts.length ? (

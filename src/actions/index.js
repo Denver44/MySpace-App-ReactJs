@@ -1,4 +1,5 @@
 import axios from "../api/axios";
+import { TYPES_FOR_POST, TYPES_FOR_USERS } from "./types";
 
 axios.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
@@ -12,7 +13,7 @@ axios.interceptors.request.use((req) => {
 export const fetchPost = () => async (dispatch) => {
   try {
     const { data } = await axios.get("/posts");
-    dispatch({ type: "FETCH_ALL", payload: data });
+    dispatch({ type: TYPES_FOR_POST.FETCH_ALL, payload: data });
   } catch (error) {
     console.log(error);
   }
@@ -21,7 +22,7 @@ export const fetchPost = () => async (dispatch) => {
 export const createPost = (newPost) => async (dispatch) => {
   try {
     const { data } = await axios.post("/posts", newPost);
-    dispatch({ type: "CREATE", payload: data });
+    dispatch({ type: TYPES_FOR_POST.CREATE, payload: data });
   } catch (error) {
     console.log(error);
   }
@@ -30,7 +31,7 @@ export const createPost = (newPost) => async (dispatch) => {
 export const updatePost = (id, updatedPost) => async (dispatch) => {
   try {
     const { data } = await axios.patch(`/posts/${id}`, updatedPost);
-    dispatch({ type: "UPDATE", payload: data });
+    dispatch({ type: TYPES_FOR_POST.UPDATE, payload: data });
   } catch (error) {
     console.log(error);
   }
@@ -39,7 +40,7 @@ export const updatePost = (id, updatedPost) => async (dispatch) => {
 export const deletePost = (id) => async (dispatch) => {
   try {
     await axios.delete(`/posts/${id}`);
-    dispatch({ type: "DELETE", payload: id });
+    dispatch({ type: TYPES_FOR_POST.DELETE, payload: id });
   } catch (error) {
     console.log(error);
   }
@@ -48,7 +49,7 @@ export const deletePost = (id) => async (dispatch) => {
 export const likePost = (id) => async (dispatch) => {
   try {
     const { data } = await axios.patch(`/posts/${id}/LikePost`);
-    dispatch({ type: "LIKE", payload: data });
+    dispatch({ type: TYPES_FOR_POST.LIKE, payload: data });
   } catch (error) {
     console.log(error);
   }
@@ -58,7 +59,7 @@ export const signIn = (formData, history) => async (dispatch) => {
   try {
     const { data } = await axios.post("/user/signIn", formData);
     dispatch({
-      type: "AUTH",
+      type: TYPES_FOR_USERS.AUTH,
       data,
     });
     history.push("/");
@@ -70,7 +71,7 @@ export const signIn = (formData, history) => async (dispatch) => {
 export const signUp = (formData, history) => async (dispatch) => {
   try {
     const { data } = await axios.post("/user/signUp", formData);
-    dispatch({ type: "AUTH", data });
+    dispatch({ type: TYPES_FOR_USERS.AUTH, data });
     history.push("/");
   } catch (error) {
     console.log(error);

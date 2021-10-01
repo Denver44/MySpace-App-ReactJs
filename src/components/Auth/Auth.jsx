@@ -31,10 +31,10 @@ const Auth = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(initialState);
-  const [isSignup, setisSignup] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
 
   const switchMode = () => {
-    setisSignup((prevsetIsSignup) => !prevsetIsSignup);
+    setIsSignup((prevSetIsSignup) => !prevSetIsSignup);
     setShowPassword(false);
   };
 
@@ -51,7 +51,7 @@ const Auth = () => {
     }
   };
 
-  // only chnage the current input field u want.
+  // only change the current input field u want.
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

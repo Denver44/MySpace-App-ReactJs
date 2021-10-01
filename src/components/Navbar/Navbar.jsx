@@ -18,7 +18,7 @@ function Navbar() {
     if (auth) {
       auth.signOut();
     }
-    dispatch({ type: "LOGOUT" });
+    dispatch({ type: "LOGOUT_USER" });
     history.push("/auth");
     setUser(null);
   };
