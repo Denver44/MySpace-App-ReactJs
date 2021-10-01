@@ -6,6 +6,7 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { auth } from "../../firebase.js";
 import decode from "jwt-decode";
+import { signOut } from "../../actions/user";
 
 function Navbar() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -15,10 +16,8 @@ function Navbar() {
   const history = useHistory();
 
   const logout = () => {
-    if (auth) {
-      auth.signOut();
-    }
-    dispatch({ type: "LOGOUT_USER" });
+    if (auth) auth.signOut();
+    dispatch(signOut());
     history.push("/auth");
     setUser(null);
   };
@@ -58,13 +57,13 @@ function Navbar() {
             <div className={classes.profile}>
               <Avatar
                 className={classes.purple}
-                alt={user.result.name}
-                src={user.result.imageUrl}
+                alt={user.userInfo.name}
+                src={user.userInfo.imageUrl}
               >
-                {user.result.name.charAt(0)}
+                {user.userInfo.name.charAt(0)}
               </Avatar>
               <Typography className={classes.userName} variant="h6">
-                {user.result.name}
+                {user.userInfo.name}
               </Typography>
               <Button
                 variant="contained"

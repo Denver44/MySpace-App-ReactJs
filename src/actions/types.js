@@ -5,7 +5,9 @@ export const TYPES_FOR_POST = {
   LIKE: "LIKE_POST",
   DELETE: "DELETE_POST",
 };
+
 export const TYPES_FOR_USERS = {
   AUTH: "AUTH_USER",
   LOGOUT: "LOGOUT_USER",
+  GOOGLE_LOGIN: "GOOGLE_SIGN_IN_SIGNUP",
 };
