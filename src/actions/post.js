@@ -1,12 +1,11 @@
 import axios from "../api/axios";
-import { TYPES_FOR_POST, TYPES_FOR_USERS } from "./types";
+import { TYPES_FOR_POST } from "./types";
 
 axios.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
     let ValidateProfileData = JSON.parse(localStorage.getItem("profile")).token;
     req.headers.Authorization = `Bearer ${ValidateProfileData}`;
   }
-
   return req;
 });
 
@@ -50,29 +49,6 @@ export const likePost = (id) => async (dispatch) => {
   try {
     const { data } = await axios.patch(`/posts/${id}/LikePost`);
     dispatch({ type: TYPES_FOR_POST.LIKE, payload: data });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const signIn = (formData, history) => async (dispatch) => {
-  try {
-    const { data } = await axios.post("/user/signIn", formData);
-    dispatch({
-      type: TYPES_FOR_USERS.AUTH,
-      data,
-    });
-    history.push("/");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const signUp = (formData, history) => async (dispatch) => {
-  try {
-    const { data } = await axios.post("/user/signUp", formData);
-    dispatch({ type: TYPES_FOR_USERS.AUTH, data });
-    history.push("/");
   } catch (error) {
     console.log(error);
   }

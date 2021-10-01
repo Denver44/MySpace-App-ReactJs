@@ -4,6 +4,7 @@ import Icon from "../../images/Icon.js";
 import { auth, provider } from "../../firebase.js";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { GoogleSignIn } from "../../actions/user.js";
 
 function GoogleButton() {
   const dispatch = useDispatch();
@@ -13,14 +14,14 @@ function GoogleButton() {
     auth
       .signInWithPopup(provider)
       .then((res) => {
-        const result = {
+        const userInfo = {
           imageUrl: res.user.photoURL,
           email: res.user.email,
           name: res.user.displayName,
           googleId: res.user.uid,
         };
         const token = res.user.uid;
-        dispatch({ type: "AUTH", data: { result, token } });
+        dispatch(GoogleSignIn({ data: { userInfo, token } }));
       })
       .then(() => {
         history.push("/");

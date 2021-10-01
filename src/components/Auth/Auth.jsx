@@ -7,13 +7,13 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
-import GoogleButton from "../GoogleButton/GoogleButton";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import useStyles from "./Style.js";
-import Input from "../Input/Input";
-import { signIn, signUp } from "../../actions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import GoogleButton from "../GoogleButton/GoogleButton";
+import Input from "../Input/Input";
+import { signIn, signUp } from "../../actions/user";
+import useStyles from "./Style.js";
 
 const initialState = {
   firstName: "",
