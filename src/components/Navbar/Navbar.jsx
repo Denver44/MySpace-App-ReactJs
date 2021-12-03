@@ -4,7 +4,6 @@ import Logo from "../../images/logo3.png";
 import { useStyles } from "./styles.js";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { auth } from "../../firebase.js";
 import decode from "jwt-decode";
 import { signOut } from "../../actions/user";
 
@@ -16,7 +15,6 @@ function Navbar() {
   const history = useHistory();
 
   const logout = () => {
-    if (auth) auth.signOut();
     dispatch(signOut());
     history.push("/auth");
     setUser(null);
