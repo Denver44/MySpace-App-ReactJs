@@ -10,7 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import GoogleButton from "../GoogleButton/GoogleButton";
+// import GoogleButton from "../GoogleButton/GoogleButton";
 import Input from "../Input/Input";
 import { signIn, signUp } from "../../actions/user";
 import useStyles from "./Style.js";
@@ -115,7 +115,7 @@ const Auth = () => {
           >
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
-          <GoogleButton className={classes.googleButtton} />
+          {/* <GoogleButton className={classes.googleButtton} /> */}
           <Grid container justify="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
