@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, InputAdornment, IconButton, Grid } from "@material-ui/core";
-import { Visibility } from "@material-ui/icons/Visibility";
-import { VisibilityOff } from "@material-ui/icons/VisibilityOff";
+import  Visibility  from "@material-ui/icons/Visibility";
+import  VisibilityOff  from "@material-ui/icons/VisibilityOff";
 function Input({
   half,
   handleChange,
